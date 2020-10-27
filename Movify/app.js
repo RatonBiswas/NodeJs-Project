@@ -20,7 +20,7 @@ app.use(express.static('public'))
 
 app.use(express.json());
 
-app.use('/movie',searchRoute)
+app.use('',searchRoute)
 
 
 
