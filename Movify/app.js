@@ -2,7 +2,7 @@
 const express = require('express');
 const chalk = require('chalk')
 const path = require('path')
-const searchRoute = require('./router/searchRoute.js')
+const searchRoute = require('./router/searchRoute')
 
 
 
@@ -21,10 +21,6 @@ app.use(express.static('public'))
 app.use(express.json());
 
 app.use('/movie',searchRoute)
-
-// app.get('/search',(req,res) => {
-//     res.render('search')
-// })
 
 
 
