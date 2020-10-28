@@ -1,2 +1,2 @@
-1. Create online movify app
-2.Crud Operation of mongoDb 
+1.Create online movify app.
+2.Crud Operation of mongoDb.
