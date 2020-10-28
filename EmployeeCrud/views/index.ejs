@@ -1,13 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee</title>
-</head>
-<body>
-    <div>
-        <h1>Raton nana</h1>
-    </div>
-</body>
-</html>
+<%- include('partials/header') -%>
+
+<div class="container mt-5">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Salary</th>
+                <th>Operations</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Salary</th>
+                <th>Operations</th>
+            </tr>
+        </tfoot>
+        <tbody>
+            <tr>
+                <td>Mike</td>
+                <td>Manager</td>
+                <td>$12355</td>
+                <td>
+                    <a class="btn btn-primary" href="/edit/">Edit</a>
+                    <form style="display: inline;" action="/delete/method=" POST">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button class="btn btn-danger ml-2" style="cursor: pointer;" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<%- include('partials/footer') -%>
