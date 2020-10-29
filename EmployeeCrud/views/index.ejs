@@ -19,18 +19,20 @@
             </tr>
         </tfoot>
         <tbody>
-            <tr>
-                <td>Mike</td>
-                <td>Manager</td>
-                <td>$12355</td>
-                <td>
-                    <a class="btn btn-primary" href="/edit/">Edit</a>
-                    <form style="display: inline;" action="/delete/method=" POST">
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button class="btn btn-danger ml-2" style="cursor: pointer;" type="submit">Delete</button>
-                    </form>
-                </td>
-            </tr>
+            <% employees.forEach((employee) =>{ %>
+                <tr>
+                    <td><%= employee.name%></td>
+                    <td><%= employee.designation%></td>
+                    <td>$<%= employee.salary%></td>
+                    <td>
+                        <a class="btn btn-primary" href="/edit/">Edit</a>
+                        <form style="display: inline;" action="/delete/method=" POST">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button class="btn btn-danger ml-2" style="cursor: pointer;" type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
         </tbody>
     </table>
 </div>
