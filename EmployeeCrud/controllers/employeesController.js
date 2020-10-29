@@ -35,3 +35,25 @@ export const getEmployeeInfo = (req, res) => {
         console.log(err);
     })
 }
+
+export const getUpdateView = (req, res) => {
+    let searchQuery = {_id:req.params.id}
+    Employee.findOne(searchQuery).then((employee) => {
+        res.render('edit',{employee:employee})
+    }).catch((err) => {
+        console.log(err);
+    })
+}
+
+export const getUpdate = (req, res) => {
+    let searchQuery = {_id:req.params.id}
+    Employee.updateOne(searchQuery,{$set:{
+        name:req.body.name,
+        description: req.body.description,
+        salary: req.body.salary,
+    }}).then((employee) => {
+        res.render('index',{employee:employee})
+    }).catch((err) => {
+        console.log(err);
+    })
+}

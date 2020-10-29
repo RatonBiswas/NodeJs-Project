@@ -25,8 +25,8 @@
                     <td><%= employee.designation%></td>
                     <td>$<%= employee.salary%></td>
                     <td>
-                        <a class="btn btn-primary" href="/edit/">Edit</a>
-                        <form style="display: inline;" action="/delete/method=" POST">
+                        <a class="btn btn-primary" href="/employee/edit/<%=employee.id%>">Edit</a>
+                        <form style="display: inline;" action="/employee/delete/method=" POST">
                             <input type="hidden" name="_method" value="DELETE">
                             <button class="btn btn-danger ml-2" style="cursor: pointer;" type="submit">Delete</button>
                         </form>

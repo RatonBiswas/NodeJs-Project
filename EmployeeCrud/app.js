@@ -2,6 +2,7 @@ import express from 'express'
 import path from 'path'
 import chalk from 'chalk';
 import  dotenv from 'dotenv';
+import methodOverride from 'method-override'
 import  mongoose from 'mongoose';
 const app = express();
 import { dirname } from 'path';
@@ -29,9 +30,12 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
+app.use(express.json()); 
 // Body parser Middleware
-app.use(express.json());
 app.use(bodyParser.urlencoded({ extended:true}));
+
+//middleware method override
+app.use(methodOverride('_method'))
 
 // Use Routes
 
