@@ -1,15 +1,21 @@
 <%- include('partials/header') -%>
 
 <div class="container mt-5 w-50">
-    <h2 class="mb-4">Add New Employee</h2>
-    <from>
-        <input type="text" name="name" class="form-control" placeholder="Employee Name"><br>
 
-        <input type="text" name="designation" class="form-control" placeholder="Employee Designation"><br>
+    <h2 class="mb-4">Add New Employee</h2>
+
+    <form action="/employee/new" method="POST">
+
+        <input type="text" name="name" class="form-control" placeholder="Employee Name">
+
+        <input type="text" name="designation" class="form-control" placeholder="Employee Designation">
 
         <input type="text" name="salary" class="form-control" placeholder="Employee Salary"><br>
 
         <button type="submit" class="btn btn-danger btn-black-mt-3">Add to Databse</button>
-    </from>
+
+    </form>
+
 </div>
+
 <%- include('partials/footer') -%>

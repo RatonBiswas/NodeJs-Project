@@ -6,6 +6,7 @@ import  mongoose from 'mongoose';
 const app = express();
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import bodyParser from 'body-parser';
 
 import employeesRoute from './routes/employeesRoute.js'
 
@@ -30,9 +31,10 @@ app.use(express.static('public'));
 
 // Body parser Middleware
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended:true}));
 
 // Use Routes
-app.use('/api/employee', employeesRoute) 
+app.use('/employee', employeesRoute) 
 
 
 const port = process.env.PORT || 8000;
