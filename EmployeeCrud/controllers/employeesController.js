@@ -48,12 +48,21 @@ export const getUpdateView = (req, res) => {
 export const getUpdate = (req, res) => {
     let searchQuery = {_id:req.params.id}
     Employee.updateOne(searchQuery,{$set:{
-        name:req.body.name,
-        description: req.body.description,
-        salary: req.body.salary,
-    }}).then((employee) => {
-        res.render('index',{employee:employee})
-    }).catch((err) => {
+        name: req.body.name,
+        designation: req.body.designation,
+        salary: req.body.salary
+    }}).then((employee) =>{
+        res.redirect('/employee')
+    }).catch((err) =>{
+        console.log(err);
+    })
+}
+
+export const deleteOne = (req, res) => {
+    let searchQuery = {_id:req.params.id}
+    Employee.findByIdAndDelete(searchQuery).then((employee) =>{
+        res.redirect('/employee')
+    }).catch((err) =>{
         console.log(err);
     })
 }

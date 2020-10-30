@@ -9,6 +9,7 @@ router.get('/search',employeesController.getSearch)
 router.get('/employees',employeesController.getEmployeeInfo)
 router.get('/edit/:id',employeesController.getUpdateView)
 router.put('/edit/:id',employeesController.getUpdate)
+router.post('/delete/:id',employeesController.deleteOne)
 
 
 
