@@ -29,7 +29,10 @@
             </tr>
         </tbody>
     </table>
-   <% }  %>
+   <% }else if(employee!='') { %>
+    <div class="alert alert-danger mt-2">Employee doesn't exist with that name.</div>
+
+   <% } %>
 </div>
 
 <%- include('partials/footer') -%>
