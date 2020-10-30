@@ -3,6 +3,8 @@ import path from 'path'
 import chalk from 'chalk';
 import  dotenv from 'dotenv';
 import methodOverride from 'method-override'
+import session from 'express-session'
+import flash from 'connect-flash'
 import  mongoose from 'mongoose';
 const app = express();
 import { dirname } from 'path';
@@ -36,6 +38,23 @@ app.use(bodyParser.urlencoded({ extended:true}));
 
 //middleware method override
 app.use(methodOverride('_method'))
+
+//middleware for express session
+app.use(session({
+    secret: "nodejs",
+    resave:true,
+    saveUninitialized:true
+}))
+
+//middleware for connect flash
+app.use(flash())
+
+//setting messages variable globally
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash(('success_msg'))
+    res.locals.error_msg = req.flash(('error_msg'))
+    next()
+})
 
 // Use Routes
 
