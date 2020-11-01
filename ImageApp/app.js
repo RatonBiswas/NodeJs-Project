@@ -7,7 +7,7 @@ import multer from 'multer'
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import methodOverride from 'method-override'
-
+import * as fs from 'fs';
 import imageRoute from './routes/imageRoute.js'
 import Image from './models/imageModel.js'
 const app = express()
@@ -61,13 +61,13 @@ app.post('/uploadSingle',upload.single('singleImage'),(req,res,next) =>{
     }
 
     let url = file.path.replace('public', '');
-    Image.findOne({imaUrl: url}).then(img=>{
+    Image.findOne({imgUrl: url}).then(img=>{
         if(img){
 
             console.log("Duplicte Image,Please Try Again!");
             return res.redirect('/upload')
         }
-        Image.create({imgUrl: url}).then(images=>{
+        Image.create({imgUrl: url}).then(img=>{
             console.log("Image Save to Database");
             res.redirect('/image/')
         })
@@ -108,6 +108,20 @@ function checkFileType(file,cb){
         cb('Error : Please Image Only.')
     }
 }
+
+app.delete('/delete/:id',(req,res)=>{
+    let searchQuery = {_id:req.params.id}
+    Image.findOne(searchQuery).then(img=>{
+        fs.unlink(__dirname+'/public'+img.imgUrl,(err)=>{
+            if(err) return console.log(err);
+            Image.deleteOne(searchQuery).then(img=>{
+                res.redirect('/image/')
+            })
+        })
+        }).catch(err=>{
+            console.log(err);
+    })
+})
 
 //** Server running port.
 const port = process.env.PORT || 8000;
