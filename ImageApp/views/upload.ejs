@@ -3,9 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>File Upload</title>
 </head>
 <body>
-    <h1>Raton Nana</h1>
+    <div class="container w-50">
+        <h1 class = "text-center-my-4 mt-5">Upload Images Here</h1>
+        <!-- Single File Upload  -->
+        <h3 class="mt-5 mb-2">Single Upload</h3>
+        <div class="custom-file">
+            <form class="form-control" action="/uploadSingle" enctype="multipart/form-data" method="post">
+                <input type="file" name="singleImage" class="custom-file-input"/>
+                <label class="custom-file-label" for="customFile">Choose Image</label>
+                <input class="btn btn-success btn block my-2" type="submit" value="Upload Image"/>
+            </form>
+        </div>
+        <!-- Multiple File Upload  -->
+        <h3 class="mt-5 mb-2">Multiples Upload</h3>
+        <div class="custom-file">
+            <form class="form-control" action="/uploadMultiple" enctype="multipart/form-data" method="post">
+                <input type="file" name="multipleImage" class="custom-file-input" multiple>
+                <label class="custom-file-label" for="customFile">Choose Image</label>
+                <input class="btn btn-success btn block my-2" type="submit" value="Upload Image"/>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
