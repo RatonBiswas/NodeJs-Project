@@ -1,21 +1,21 @@
-import mongoose from 'mongoose'
-import shortid from 'shortid'
+import mongoose from 'mongoose';
+import shortId from 'shortid';
 
-const shortUrlsSchema = new mongoose.Schema({
-    full:{
-        type: String,
-        required: true,
-    },
-    short:{
-        type: String,
-        required: true,
-        default: ()=> shortid.generate
-    },
-    clicks:{
-        type: String,
-        required: true,
-        default: 0
-    }
-})
+const shortUrlSchema = new mongoose.Schema({
+  full: {
+    type: String,
+    required: true,
+  },
+  short: {
+    type: String,
+    required: true,
+    default: shortId.generate,
+  },
+  clicks: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+});
 
-export default mongoose.model("UrlShortener", shortUrlsSchema);
+export default mongoose.model('ShortUrl', shortUrlSchema);
