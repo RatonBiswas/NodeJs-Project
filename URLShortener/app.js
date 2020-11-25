@@ -10,6 +10,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+dotenv.config({ path: './config.env' });
 
 // connecting to mongoDB database
 mongoose
@@ -29,6 +30,13 @@ app.use(express.static('public'));
 
 app.use(express.json()); 
 
+app.get('/',(req,res) => {
+    res.render('index')
+})
+
+app.post('/shortUrls',(req,res) => {
+    
+})
 
 const port = process.env.PORT || 8000;
 app.listen(port, () =>
