@@ -15,15 +15,21 @@ const io = socketio(server)
 
 // Run when client connects
 io.on('connection', socket => {
-  //** */ Welcome current user
+  //** */ Welcome current user */
   socket.emit('message','Welcome to ChatBoard')
 
-  // ** Broadcast when a user connects
+  // ** Broadcast when a user connects */
   socket.broadcast.emit('message','A user has joined the chat')
 
-  // ** Runs when client disconnects
+  // ** Runs when client disconnects */
   socket.on('disconnect',()=>{
     io.emit('message','A user has left the chat')
+  })
+
+  //** Listen for chatMessage */
+  socket.on('chatMessage',(msg)=>{
+    // console.log(msg);
+    io.emit('message',msg)
   })
 })
 // io.on('connect', socket => {
