@@ -16,22 +16,26 @@ const io = socketio(server)
 
 // Run when client connects
 io.on('connection', socket => {
-  //** */ Welcome current user */
-  const botName = 'ChatBoard Bot'
-  socket.emit('message',formatMessage(botName,'Welcome to ChatBoard!'))
 
-  // ** Broadcast when a user connects */
-  socket.broadcast.emit('message',formatMessage(botName,'A user has joined the chat'))
+  socket.emit('joinRoom',({username, room})=>{
 
-  // ** Runs when client disconnects */
-  socket.on('disconnect',()=>{
-    io.emit('message',formatMessage(botName,'A user has left the chat'))
+    //** */ Welcome current user */
+    const botName = 'ChatBoard Bot'
+    socket.emit('message',formatMessage(botName,'Welcome to ChatBoard!'))
+  
+    // ** Broadcast when a user connects */
+    socket.broadcast.emit('message',formatMessage(botName,'A user has joined the chat'))
   })
 
   //** Listen for chatMessage */
   socket.on('chatMessage',(msg)=>{
     // console.log(msg);
     io.emit('message',formatMessage('USER',msg))
+  })
+
+  // ** Runs when client disconnects */
+  socket.on('disconnect',()=>{
+    io.emit('message',formatMessage(botName,'A user has left the chat'))
   })
 })
 // io.on('connect', socket => {
