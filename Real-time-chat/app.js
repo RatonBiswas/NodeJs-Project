@@ -8,6 +8,7 @@ const http = require('http')
 // import { dirname } from "path";
 // import { fileURLToPath } from "url";
 
+const formatMessage = require('./utils/messages')
 const app = express();
 const server = http.createServer(app)
 // const io = socketio(server)
@@ -16,20 +17,21 @@ const io = socketio(server)
 // Run when client connects
 io.on('connection', socket => {
   //** */ Welcome current user */
-  socket.emit('message','Welcome to ChatBoard')
+  const botName = 'ChatBoard Bot'
+  socket.emit('message',formatMessage(botName,'Welcome to ChatBoard!'))
 
   // ** Broadcast when a user connects */
-  socket.broadcast.emit('message','A user has joined the chat')
+  socket.broadcast.emit('message',formatMessage(botName,'A user has joined the chat'))
 
   // ** Runs when client disconnects */
   socket.on('disconnect',()=>{
-    io.emit('message','A user has left the chat')
+    io.emit('message',formatMessage(botName,'A user has left the chat'))
   })
 
   //** Listen for chatMessage */
   socket.on('chatMessage',(msg)=>{
     // console.log(msg);
-    io.emit('message',msg)
+    io.emit('message',formatMessage('USER',msg))
   })
 })
 // io.on('connect', socket => {
