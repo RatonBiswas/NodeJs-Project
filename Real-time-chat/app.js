@@ -1,66 +1,77 @@
-const  express = require('express')
-const path =require('path')
-const chalk = require('chalk')
-const  socketio =require('socket.io');
-// import * as socketio from 'socket.io-client';
-// import {socketio} from "/socket.io/socket.io.js"
-const http = require('http')
-// import { dirname } from "path";
-// import { fileURLToPath } from "url";
+const path = require('path');
+const http = require('http');
+const express = require('express');
+const socketio = require('socket.io');
+const chalk = require('chalk');
+const formatMessage = require('./utils/messages');
+const {
+  userJoin,
+  getCurrentUser,
+  userLeave,
+  getRoomUsers
+} = require('./utils/users');
 
-const formatMessage = require('./utils/messages')
-const {userJoin, getCurrentUser,getRoomUsers,userLeave} = require('./utils/users')
 const app = express();
-const server = http.createServer(app)
-// const io = socketio(server)
-const io = socketio(server)
+const server = http.createServer(app);
+const io = socketio(server);
 
-// Run when client connects
+//** Set static folder*/ 
+app.use(express.static(path.join(__dirname, 'public')));
+
+const botName = 'ChatCord Bot';
+
+// ** Run when client connects */
 io.on('connection', socket => {
+  socket.on('joinRoom', ({ username, room }) => {
+    const user = userJoin(socket.id, username, room);
 
-  socket.emit('joinRoom',({username, room})=>{
-    const user = userJoin(socket.id,username,room)
-    socket.join(user.room)
-    //** */ Welcome current user */
-    const botName = 'ChatBoard Bot'
-    socket.emit('message',formatMessage(botName,'Welcome to ChatBoard!'))
-  
-    // ** Broadcast when a user connects */
-    socket.broadcast.to(user.room).emit('message',formatMessage(botName,`${user.username}has joined the chat`))
-  })
+    socket.join(user.room);
 
-  //** Listen for chatMessage */
-  socket.on('chatMessage',(msg)=>{
-    // console.log(msg);
-    io.emit('message',formatMessage('USER',msg))
-  })
+    //**  Welcome current user */
+    socket.emit('message', formatMessage(botName, 'Welcome to ChatCord!'));
 
-  // ** Runs when client disconnects */
-  socket.on('disconnect',()=>{
-    const user = userLeave(socket.id)
-    if(user){
-      io.to(user.room).emit('message',formatMessage(botName,`${user.username} has left the chat`))
+    //** Broadcast when a user connects */
+    socket.broadcast
+      .to(user.room)
+      .emit(
+        'message',
+        formatMessage(botName, `${user.username} has joined the chat`)
+      );
+
+    //**  Send users and room info */
+    io.to(user.room).emit('roomUsers', {
+      room: user.room,
+      users: getRoomUsers(user.room)
+    });
+  });
+
+  // ** Listen for chatMessage */
+  socket.on('chatMessage', msg => {
+    const user = getCurrentUser(socket.id);
+
+    io.to(user.room).emit('message', formatMessage(user.username, msg));
+  });
+
+  //** Runs when client disconnects */
+  socket.on('disconnect', () => {
+    const user = userLeave(socket.id);
+
+    if (user) {
+      io.to(user.room).emit(
+        'message',
+        formatMessage(botName, `${user.username} has left the chat`)
+      );
+
+      //**  Send users and room info */
+      io.to(user.room).emit('roomUsers', {
+        room: user.room,
+        users: getRoomUsers(user.room)
+      });
     }
-  })
-})
-// io.on('connect', socket => {
-//   console.log("New WS connection.....");
-// });
+  });
+});
 
-// const __dirname = dirname(fileURLToPath(import.meta.url));
-// view engine
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
-//set static folder
-app.use(express.static("public"));
-
-
-
-// app.get("/", (req, res) => {
-//   res.render("index");
-// });
-
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3000;
 server.listen(port, () =>
   console.log(`app running on port ${chalk.greenBright(port)} ....`),
 );
