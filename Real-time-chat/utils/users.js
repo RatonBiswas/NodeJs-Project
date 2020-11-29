@@ -14,4 +14,4 @@ function getCurrentUser(id){
     return users.find(user => user.id===id)
 }
 
-module.exports = userJoin
+module.exports = {userJoin,getCurrentUser}
