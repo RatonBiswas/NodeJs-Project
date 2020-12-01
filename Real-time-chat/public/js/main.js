@@ -33,7 +33,13 @@ chatForm.addEventListener('submit', e => {
   e.preventDefault();
 
   //** Get message text */
-  const msg = e.target.elements.msg.value;
+   let msg = e.target.elements.msg.value;
+  
+   msg = msg.trim();
+   
+   if (!msg){
+     return false;
+   }
 
   //** Emit message to server */
   socket.emit('chatMessage', msg);
@@ -45,9 +51,18 @@ chatForm.addEventListener('submit', e => {
 
 //** Output message to DOM */
 function outputMessage(message) {
-  const div = document.createElement('div');
-  div.classList.add('message');
-  document.querySelector('.chat-messages').appendChild(div);
+    const div = document.createElement('div');
+    div.classList.add('message');
+    const p = document.createElement('p');
+    p.classList.add('meta');
+    p.innerText = message.username;
+    p.innerHTML += `<span>${message.time}</span>`;
+    div.appendChild(p);
+    const para = document.createElement('p');
+    para.classList.add('text');
+    para.innerText = message.text;
+    div.appendChild(para);
+    document.querySelector('.chat-messages').appendChild(div);
 }
 
 //** Add room name to DOM */ 
