@@ -35,5 +35,4 @@ class Contacts {
         return deleteObject
     }
 }
-
-exports.contacts = new Contacts()
+module.exports = new Contacts()
