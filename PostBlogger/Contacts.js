@@ -8,7 +8,7 @@ class Contacts {
     }
     // get single contact
     getConstactsById(id){
-        return this.contacts.find(contacts => contacts.id === id)
+        return this.contacts.find(contact => contact.id === id)
     }
     // create contacts
     createContact(contact){
