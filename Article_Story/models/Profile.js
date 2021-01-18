@@ -1,11 +1,13 @@
 // User, title, bio , profilePics , Links : {fb, tw, }, posts , bookmarks
 
 const mongoose = require('mongoose')
+const User = require('./User')
+const Post = require('./Post')
 
 const profileSchema = new mongoose.Schema({
     user:{
         type: mongoose.Schema.ObjectId,
-        ref: 'User',
+        ref: User,
         required: true
     },
     title:{
@@ -28,13 +30,13 @@ const profileSchema = new mongoose.Schema({
     posts:[
         {
             type:mongoose.Schema.ObjectId,
-            ref: 'Post'
+            ref: Post
         }
     ],
     bookmarks:[
         {
             type:mongoose.Schema.ObjectId,
-            ref: 'Post'
+            ref: Post
         }
     ]
     

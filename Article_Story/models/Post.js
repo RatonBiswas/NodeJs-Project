@@ -1,5 +1,7 @@
 // title , body , author ,tags, thumnail , readtime , likes, dislikes, comments
 const mongoose = require('mongoose')
+const User = require('./User')
+const Comment = require('./Comment')
 
 const postSchema = new mongoose.Schema({
     title:{
@@ -10,11 +12,11 @@ const postSchema = new mongoose.Schema({
     },
     body:{
         type:String,
-        required:true,
+        required:true
     },
     author:{
         type: mongoose.Schema.ObjectId,
-        ref: 'User',
+        ref: User,
         required: true
     },
     tags:{
@@ -23,12 +25,18 @@ const postSchema = new mongoose.Schema({
     },
     thumnail: String,
     readTime: String,
-    likes: [mongoose.Schema.ObjectId],
-    dislikes: [mongoose.Schema.ObjectId],
+    likes: [{
+        type: mongoose.Schema.ObjectId,
+        ref: User,
+    }],
+    dislikes: [{
+        type: mongoose.Schema.ObjectId,
+        ref: User,
+    }],
     comments: [
         {
             type: mongoose.Schema.ObjectId,
-            ref: 'Comment',
+            ref: Comment
         }
     ]
 },{

@@ -1,16 +1,18 @@
 // post  , user , body , replies
 
 const mongoose = require('mongoose')
+const User = require('./User')
+const Post = require('./Post')
 
 const commentSchema = new mongoose.Schema({
     post:{
         type:mongoose.Schema.ObjectId,
-        ref: 'Post',
+        ref: Post,
         required: true
     },
     user:{
         type: mongoose.Schema.ObjectId,
-        ref: 'User',
+        ref: User,
         required: true
     },
     body:{
@@ -26,7 +28,7 @@ const commentSchema = new mongoose.Schema({
             },
             user:{
                 type: mongoose.Schema.ObjectId,
-                ref: 'User',
+                ref: User,
                 required: true
             },
             createdAt:{
