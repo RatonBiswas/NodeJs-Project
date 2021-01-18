@@ -38,7 +38,7 @@ const profileSchema = new mongoose.Schema({
         }
     ]
     
-}, {
+},{
     timestamp:true
 })
 
