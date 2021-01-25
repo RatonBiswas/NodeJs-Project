@@ -10,6 +10,12 @@ const profileSchema = new mongoose.Schema({
         ref: User,
         required: true
     },
+    name:{
+        type:String,
+        required: true,
+        trim:true,
+        maxLength:30,
+    },
     title:{
         type:String,
         trim: true,
