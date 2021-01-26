@@ -39,7 +39,7 @@ app.get('/', (req, res) =>{
 
 
 const PORT = process.env.PORT || 8000
-mongoose.connect('mongodb+srv://article-story:@cluster0.xrfxu.mongodb.net/article-story?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://article-story:D9Jg2CKOc8jrn80X@cluster0.xrfxu.mongodb.net/article-story?retryWrites=true&w=majority',
     {useNewUrlParser: true,
      useUnifiedTopology: true
     })

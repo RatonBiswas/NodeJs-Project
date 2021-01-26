@@ -13,14 +13,34 @@ router.post('/validator',
             .withMessage(`username is empty`)
             .isLength({max:15})
             .withMessage(`Username can not be greater than 15 characters`),
+        
         check('email')
             .isEmail()
-            .withMessage(`Please Provide a valid email address`)
+            .withMessage(`Please Provide a valid email address`),
+        
+            //custom validation
+        check('password').custom(value=>{
+            if(value.length<5){
+                throw new Error('Password must be at least 5 characters')
+            }
+            return true
+        }),
+
+        check('confirmPassword').custom((value,{req})=>{
+            if(value !== req.body.password){
+                throw new Error('Password does not match')
+            }
+            return true
+        })
     ],
     (req,res,next)=>{
         const errors = validationResult(req);
-        console.log('create successfully');
-        console.log(errors);
+        const formatter = (error)=> error.msg
+
+        console.log(errors.isEmpty());
+        console.log(errors.array());
+        console.log(errors.mapped());
+        console.log(errors.formatWith(formatter).mapped());
         // if (!errors.isEmpty()) {
         //     return res.status(400).json({ errors: errors.array() });
         //   }
