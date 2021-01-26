@@ -1,6 +1,10 @@
 const express = require('express')
 const morgan = require('morgan')
 
+//Import Route
+const authRoutes = require('./routes/authRoute')
+
+
 const app = express()
  
 
@@ -18,9 +22,12 @@ const middleware = [
 ]
 app.use(middleware)
 
+app.use('/auth',authRoutes)
+
 app.get('/', (req, res) =>{
-    res.render('pages/auth/signup',{title: 'Create A New Account'})
-    res.json('Hello User')
+    res.json({
+        message: 'Hello User'
+    })
 })
 
 

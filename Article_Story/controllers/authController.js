@@ -1,10 +1,25 @@
-
+const User = require('../models/User')
 
 exports.signupGetController = (req, res,next)=>{
-
+    res.render('pages/auth/signup',{title:'Create A New Account'})
 }
-exports.signupPostController = (req, res,next)=>{
-
+exports.signupPostController = async(req, res,next)=>{
+    let {username,email,password} = req.body
+    let user = new User({
+        username,
+        email,
+        password
+    })
+    try{
+        // let createdUser = await user.save()
+        // console.log('Successfully Created Account', createdUser);
+        console.log('Successfully Created Account', user);
+        res.render('pages/auth/signup',{title:'Create A New Account'})
+    }catch(e){
+        console.log(e);
+        next(e);
+    }
+    
 }
 
 exports.loginGetController = (req, res,next)=>{
