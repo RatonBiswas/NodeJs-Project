@@ -12,12 +12,13 @@ router.post('/validator',
             .isEmpty()
             .withMessage(`username is empty`)
             .isLength({max:15})
-            .withMessage(`Username can not be greater than 15 characters`),
-        
+            .withMessage(`Username can not be greater than 15 characters`)
+            .trim(),
         check('email')
             .isEmail()
-            .withMessage(`Please Provide a valid email address`),
-        
+            .withMessage(`Please Provide a valid email address`)
+            .normalizeEmail(),
+            
             //custom validation
         check('password').custom(value=>{
             if(value.length<5){
@@ -41,6 +42,7 @@ router.post('/validator',
         console.log(errors.array());
         console.log(errors.mapped());
         console.log(errors.formatWith(formatter).mapped());
+            console.log(req.body.username,req.body.email);
         // if (!errors.isEmpty()) {
         //     return res.status(400).json({ errors: errors.array() });
         //   }
