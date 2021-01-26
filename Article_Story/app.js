@@ -6,6 +6,10 @@ const mongoose = require('mongoose')
 const authRoutes = require('./routes/authRoute')
 
 
+//Playground routes
+const validatorRoutes = require('./playground/validator') // TODO should be removed
+
+
 const app = express()
  
 
@@ -24,6 +28,8 @@ const middleware = [
 app.use(middleware)
 
 app.use('/auth',authRoutes)
+app.use('/playground',validatorRoutes) // TODO should be removed
+
 
 app.get('/', (req, res) =>{
     res.json({
