@@ -9,6 +9,7 @@
   "author": "Raton Biswas",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "mongoose": "^5.11.12",

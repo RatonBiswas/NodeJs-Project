@@ -1,5 +1,6 @@
 const express = require('express')
 const morgan = require('morgan')
+const mongoose = require('mongoose')
 
 //Import Route
 const authRoutes = require('./routes/authRoute')
@@ -32,6 +33,16 @@ app.get('/', (req, res) =>{
 
 
 const PORT = process.env.PORT || 8000
-app.listen(PORT,()=>{
-    console.log(`Server is running on ${PORT}`);
-})
+mongoose.connect('mongodb+srv://article-story:@cluster0.xrfxu.mongodb.net/article-story?retryWrites=true&w=majority',
+    {useNewUrlParser: true,
+     useUnifiedTopology: true
+    })
+    .then(()=>{
+        console.log('Database connect successful');
+        app.listen(PORT,()=>{
+            console.log(`Server is running on ${PORT}`);
+        })
+    })
+    .catch(e=>{
+        return console.log(e);
+    })

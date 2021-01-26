@@ -46,9 +46,7 @@ const profileSchema = new mongoose.Schema({
         }
     ]
     
-},{
-    timestamp:true
-})
+}, { timestamps: true })
 
 const Profile = mongoose.model('Profile',profileSchema)
 

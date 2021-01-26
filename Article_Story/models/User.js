@@ -21,9 +21,7 @@ const userSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Profile'
     }
-},{
-    timestamp:true
-})
+}, { timestamps: true })
 
 const User = model('User',userSchema)
 
