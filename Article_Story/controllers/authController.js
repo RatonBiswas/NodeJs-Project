@@ -4,16 +4,23 @@ const {validationResult} = require("express-validator")
 const errorFormatter = require('../utils/validationErrorFormatter')
 
 exports.signupGetController = (req, res, next) => {
-  res.render("pages/auth/signup", { title: "Create A New Account" , error: {}});
+  res.render("pages/auth/signup", { title: "Create A New Account" , error: {} , value:''});
 };
 
 exports.signupPostController = async (req, res, next) => {
+    let { username, email, password } = req.body;
     let errors = validationResult(req).formatWith(errorFormatter)
     if(!errors.isEmpty()){
-        return res.render("pages/auth/signup", { title: "Create A New Account" , error: errors.mapped()});;
+        return res.render("pages/auth/signup", 
+        { 
+            title: "Create A New Account" , 
+            error: errors.mapped(),
+            value: {
+                username, email, password 
+            }
+        })
     }
     try {
-    let { username, email, password } = req.body;
     const hashed= await bcrypt.hash(password,11); 
     let user = new User({
       username,
@@ -24,7 +31,7 @@ exports.signupPostController = async (req, res, next) => {
     let createdUser = await user.save();
     console.log("Successfully Created Account");
     // console.log('Successfully Created Account', user);
-    res.render("pages/auth/signup", { title: "Create A New Account" });
+    res.render("pages/auth/signup", { title: "Create A New Account" , error: {} , value:''});
   } catch (e) {
     console.log(e);
     next(e);
