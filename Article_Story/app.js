@@ -9,6 +9,7 @@ const authRoutes = require('./routes/authRoute')
 
 // Import Middleware
 const {bindUserWithRequest} = require('./middleware/authMiddleware')
+const setLocals = require('./middleware/setLocals')
 
 
 //Playground routes
@@ -41,7 +42,8 @@ const middleware = [
         saveUninitialized: false,
         store: store
     }),
-    bindUserWithRequest
+    bindUserWithRequest,
+    setLocals()
 ]
 app.use(middleware)
 
