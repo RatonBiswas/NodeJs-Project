@@ -6,6 +6,7 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 
 //Import Route
 const authRoutes = require('./routes/authRoute')
+const dashboardRoutes = require('./routes/dashboardRoute')
 
 // Import Middleware
 const {bindUserWithRequest} = require('./middleware/authMiddleware')
@@ -42,12 +43,13 @@ const middleware = [
         saveUninitialized: false,
         store: store
     }),
-    bindUserWithRequest,
+    bindUserWithRequest(),
     setLocals()
 ]
 app.use(middleware)
 
 app.use('/auth',authRoutes)
+app.use('/dashboard',dashboardRoutes)
 // app.use('/playground',validatorRoutes) // TODO should be removed
 
 
