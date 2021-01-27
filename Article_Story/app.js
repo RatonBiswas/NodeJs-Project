@@ -2,9 +2,13 @@ const express = require('express')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
 const session = require('express-session')
+const MongoDBStore = require('connect-mongodb-session')(session);
 
 //Import Route
 const authRoutes = require('./routes/authRoute')
+
+// Import Middleware
+const {bindUserWithRequest} = require('./middleware/authMiddleware')
 
 
 //Playground routes
@@ -12,8 +16,14 @@ const authRoutes = require('./routes/authRoute')
 
 
 const app = express()
- 
 
+const MONGO_URL = 'mongodb+srv://article-story:D9Jg2CKOc8jrn80X@cluster0.xrfxu.mongodb.net/article-story?retryWrites=true&w=majority'
+
+const store = new MongoDBStore({
+    uri: MONGO_URL,
+    collection: 'sessions',
+    expires: 1000 * 60 * 60 * 2
+  });
 
 // setup view engine
 app.set('view engine','ejs')
@@ -28,8 +38,10 @@ const middleware = [
     session({
         secret : process.env.SECRET_KEY || 'SECRET_KEY', 
         resave: false,
-        saveUninitialized: false
-    })
+        saveUninitialized: false,
+        store: store
+    }),
+    bindUserWithRequest
 ]
 app.use(middleware)
 
@@ -45,7 +57,7 @@ app.get('/', (req, res) =>{
 
 
 const PORT = process.env.PORT || 8000
-mongoose.connect('mongodb+srv://article-story:D9Jg2CKOc8jrn80X@cluster0.xrfxu.mongodb.net/article-story?retryWrites=true&w=majority',
+mongoose.connect(MONGO_URL,
     {useNewUrlParser: true,
      useUnifiedTopology: true
     })
