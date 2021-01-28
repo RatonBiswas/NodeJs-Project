@@ -15,7 +15,7 @@ const setLocals = require('./middleware/setLocals')
 
 
 //Playground routes
-const validatorRoutes = require('./playground/validator') // TODO should be removed
+// const validatorRoutes = require('./playground/validator') // TODO should be removed
 
 
 const app = express()
@@ -52,7 +52,7 @@ app.use(middleware)
 
 app.use('/auth',authRoutes)
 app.use('/dashboard',dashboardRoutes)
-app.use('/playground',validatorRoutes) // TODO should be removed
+// app.use('/playground',validatorRoutes) // TODO should be removed
 
 
 app.get('/', (req, res) =>{

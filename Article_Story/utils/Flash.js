@@ -1,10 +1,10 @@
 class Flash {
     constructor(req){
         this.req = req 
-        this.success = this.exrractFlashMessage('success')
-        this.fail = this.exrractFlashMessage('fail')
+        this.success = this.extractFlashMessage('success')
+        this.fail = this.extractFlashMessage('fail')
     }
-    exrractFlashMessage(name){
+    extractFlashMessage(name){
         let message = this.req.flash(name)
         return message.length > 0 ? message[0] : false
     }
@@ -17,7 +17,7 @@ class Flash {
         return{
             success: flash.success,
             fail: flash.fail,
-            hasMessage: flash.hasMessage
+            hasMessage: flash.hasMessage()
         }
     }
 
