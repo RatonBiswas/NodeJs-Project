@@ -5,6 +5,9 @@ const router = express.Router();
 const signupValidator = require("../validator/auth/signupValidator");
 const loginValidator = require("../validator/auth/loginValidator");
 
+// import Middleware
+const {unAuthenticated} = require("../middleware/authMiddleware")
+
 
 // Auth Controllers
 const {
@@ -19,11 +22,11 @@ const {
 
 
 //Route handlers
-router.get("/signup", signupGetController);
-router.post("/signup", signupValidator, signupPostController);
+router.get("/signup", unAuthenticated,signupGetController);
+router.post("/signup", unAuthenticated,signupValidator, signupPostController);
 
-router.get("/login", loginGetController);
-router.post("/login", loginValidator,loginPostController);
+router.get("/login", unAuthenticated,loginGetController);
+router.post("/login", unAuthenticated,loginValidator,loginPostController);
 
 router.get("/logout", logoutController);
 

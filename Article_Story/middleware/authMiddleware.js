@@ -22,3 +22,10 @@ exports.isAuthenticated = (req,res,next)=>{
     }
     next()
 }
+
+exports.unAuthenticated = (req,res,next)=>{
+    if(req.session.isLoggedIn){
+        return res.redirect('/dashboard');
+    }
+    next()
+}

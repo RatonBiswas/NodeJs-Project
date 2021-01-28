@@ -3,6 +3,7 @@ const morgan = require('morgan')
 const mongoose = require('mongoose')
 const session = require('express-session')
 const MongoDBStore = require('connect-mongodb-session')(session);
+const flash = require('connect-flash');
 
 //Import Route
 const authRoutes = require('./routes/authRoute')
@@ -14,7 +15,7 @@ const setLocals = require('./middleware/setLocals')
 
 
 //Playground routes
-// const validatorRoutes = require('./playground/validator') // TODO should be removed
+const validatorRoutes = require('./playground/validator') // TODO should be removed
 
 
 const app = express()
@@ -44,13 +45,14 @@ const middleware = [
         store: store
     }),
     bindUserWithRequest(),
-    setLocals()
+    setLocals(),
+    flash()
 ]
 app.use(middleware)
 
 app.use('/auth',authRoutes)
 app.use('/dashboard',dashboardRoutes)
-// app.use('/playground',validatorRoutes) // TODO should be removed
+app.use('/playground',validatorRoutes) // TODO should be removed
 
 
 app.get('/', (req, res) =>{
