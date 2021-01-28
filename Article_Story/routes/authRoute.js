@@ -25,6 +25,6 @@ router.post("/signup", signupValidator, signupPostController);
 router.get("/login", loginGetController);
 router.post("/login", loginValidator,loginPostController);
 
-router.post("/logout", logoutController);
+router.get("/logout", logoutController);
 
 module.exports = router;
