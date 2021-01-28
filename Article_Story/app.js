@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
@@ -20,8 +21,9 @@ const setLocals = require('./middleware/setLocals')
 
 const app = express()
 
-const MONGO_URL = 'mongodb+srv://article-story:D9Jg2CKOc8jrn80X@cluster0.xrfxu.mongodb.net/article-story?retryWrites=true&w=majority'
 
+const MONGO_URL = `mongodb+srv://${process.env.DB_ADMIN}:${process.env.DB_PASSWORD}@cluster0.xrfxu.mongodb.net/article-story?retryWrites=true&w=majority`
+// 
 const store = new MongoDBStore({
     uri: MONGO_URL,
     collection: 'sessions',
