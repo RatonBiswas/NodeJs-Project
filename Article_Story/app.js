@@ -1,18 +1,32 @@
 require('dotenv').config()
 const express = require('express')
-const morgan = require('morgan')
+// const morgan = require('morgan')
 const mongoose = require('mongoose')
-const session = require('express-session')
-const MongoDBStore = require('connect-mongodb-session')(session);
-const flash = require('connect-flash');
+// const session = require('express-session')
 
-//Import Route
-const authRoutes = require('./routes/authRoute')
-const dashboardRoutes = require('./routes/dashboardRoute')
+// const MongoDBStore = require('connect-mongodb-session')(session);
+// const flash = require('connect-flash');
+
+
+// var testConsole = require('debug')('app:test') //TODO Debugging purpose 
+// var dbConsole = require('debug')('app:db') //TODO Debugging purpose
+
+// testConsole('this is test console')//TODO Debugging purpose
+// dbConsole('this is db console')//TODO Debugging purpose
+
 
 // Import Middleware
-const {bindUserWithRequest} = require('./middleware/authMiddleware')
-const setLocals = require('./middleware/setLocals')
+// const {bindUserWithRequest} = require('./middleware/authMiddleware')
+// const setLocals = require('./middleware/setLocals')
+const setMiddleware = require('./middleware/middleware')
+
+//Import Route
+// const authRoutes = require('./routes/authRoute')
+// const dashboardRoutes = require('./routes/dashboardRoute')
+const setRoutes = require('./routes/routess')
+
+
+
 
 
 //Playground routes
@@ -23,45 +37,44 @@ const app = express()
 
 
 const MONGO_URL = `mongodb+srv://${process.env.DB_ADMIN}:${process.env.DB_PASSWORD}@cluster0.xrfxu.mongodb.net/article-story?retryWrites=true&w=majority`
-// 
-const store = new MongoDBStore({
-    uri: MONGO_URL,
-    collection: 'sessions',
-    expires: 1000 * 60 * 60 * 2
-  });
+
+// const store = new MongoDBStore({
+//     uri: MONGO_URL,
+//     collection: 'sessions',
+//     expires: 1000 * 60 * 60 * 2
+//   });
 
 // setup view engine
 app.set('view engine','ejs')
 app.set('views','views')
 
 // middleware array 
-const middleware = [
-    morgan('dev'),
-    express.static('public'),
-    express.urlencoded({ extended:true}),
-    express.json(),
-    session({
-        secret : process.env.SECRET_KEY || 'SECRET_KEY', 
-        resave: false,
-        saveUninitialized: false,
-        store: store
-    }),
-    bindUserWithRequest(),
-    setLocals(),
-    flash()
-]
-app.use(middleware)
+// const middleware = [
+//     morgan('dev'),
+//     express.static('public'),
+//     express.urlencoded({ extended:true}),
+//     express.json(),
+//     session({
+//         secret : process.env.SECRET_KEY || 'SECRET_KEY', 
+//         resave: false,
+//         saveUninitialized: false,
+//         store: store
+//     }),
+//     bindUserWithRequest(),
+//     setLocals(),
+//     flash()
+// ]
+// app.use(middleware)
+//Using Routes from route Directory
+setMiddleware(app)
 
-app.use('/auth',authRoutes)
-app.use('/dashboard',dashboardRoutes)
+//Using Routes from route Directory
+setRoutes(app)
+
+// app.use('/auth',authRoutes)
+// app.use('/dashboard',dashboardRoutes)
 // app.use('/playground',validatorRoutes) // TODO should be removed
-
-
-app.get('/', (req, res) =>{
-    res.json({
-        message: 'Hello User'
-    })
-})
+// app.get('/'})
 
 
 const PORT = process.env.PORT || 8000
