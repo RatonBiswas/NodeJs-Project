@@ -1,14 +1,13 @@
 const router = require('express').Router();
 const {check,validationResult } = require('express-validator');
 const Flash = require('../utils/Flash')
+const upload = require('../middleware/uploadMiddleware')
 
-router.get('/validator',(req,res,next)=>{
-    // console.log(req.flash('success'));
-    console.log(Flash.getMessage(req));
-    res.render('playground/signup',{title:"Validator Playground"})
+router.get('/play',(req,res,next)=>{
+    res.render('playground/play',{title:"Playground",flashMessage:{}})
 })
 
-router.post('/validator',
+router.post('/playy',
     [
         check('username')
             .not()
@@ -55,6 +54,10 @@ router.post('/validator',
         //     return res.status(400).json({ errors: errors.array() });
         //   }
         // res.render('playground/signup',{title:"Validator Playground"})
+})
+
+router.post('/play',upload.single('file'),(req,res,next) => {
+  res.redirect('/playground/play')  
 })
 
 module.exports= router;
