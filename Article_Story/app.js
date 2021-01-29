@@ -71,6 +71,21 @@ setMiddleware(app)
 //Using Routes from route Directory
 setRoutes(app)
 
+app.use((req, res,next) =>{
+    let error = new Error('404 Not Found')
+    error.status = 404
+    next(error)
+})
+app.use((error, req, res, next) =>{
+    if(error.status === 404){
+        return res.render('pages/error/404',
+        {flashMessage:{}})
+    }
+    res.render('pages/error/500',
+        {flashMessage:{}})
+
+})
+
 // app.use('/auth',authRoutes)
 // app.use('/dashboard',dashboardRoutes)
 // app.use('/playground',validatorRoutes) // TODO should be removed
