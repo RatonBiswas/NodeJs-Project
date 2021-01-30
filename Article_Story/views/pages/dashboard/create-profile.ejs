@@ -1,7 +1,94 @@
 <%- include('../../partials/head.ejs') %>
 
-    <div class="container my-container my-5">
-        <h6 class="display-6 text-center">Create Profile</h6>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <div class="card card-body my-5">
+
+                            <h4>
+                                <%=title %>
+                            </h4>
+                            <div class="profile-pics">
+                                <img src="<%= user.profilePics%>" alt="Profile Picture" class="img-thumbnail img-fluid"
+                                    id="profilePics">
+                                <form action="/upload/profilePics" class="my-2" id="profilePicsForm">
+                                    <input type="file" name="profilePics" id="profilePicsFile" accept="image/*" />
+                                    <input type="button" value="Remove Pics" id="removeProfilePics"
+                                        style="display:<%= user.profilePics.includes('user.png') ? 'none' : 'block' %> "
+                                        class="btn btn-danger btn-sm my-2" />
+                                </form>
+                            </div>
+                            <div>
+                                <form action="/dashboard/create-profile" method="post">
+                                    <div class="form-group my-2">
+                                        <label for="name"> </label>
+                                        <input type="text" id="name" class="form-control" name="name"
+                                            placeholder="Enter your name">
+                                    </div>
+                                    <div class="form-group my-2">
+                                        <label for="name">Enter Your Email</label>
+                                        <input type="email" id="email" class="form-control" name="email"
+                                            placeholder="Enter your email" value="<%= user.email %>" disabled>
+                                    </div>
+                                    <div class="form-group my-2">
+                                        <label for="title">Enter A Short Title</label>
+                                        <input type="text" id="title" class="form-control" name="title"
+                                            placeholder="Enter A Short Title">
+                                    </div>
+                                    <div class="form-group my-2">
+                                        <label for="bio">Enter Your bio</label>
+                                        <textarea id="bio" class="form-control" name="bio"></textarea>
+                                    </div>
+                                    <div>
+                                        <p class="lead">Your Social Links</p>
+                                        <div class="input-group my-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fab fa-internet-explorer"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" placeholder="Website Link" name="website"
+                                                class="form-control">
+                                        </div>
+                                        <div class="input-group my-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fab fa-facebook-square"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" placeholder="Facebook Link" name="facebook"
+                                                class="form-control">
+                                        </div>
+                                        <div class="input-group my-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fab fa-twitter-square"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" placeholder="Twitter Link" name="twitter"
+                                                class="form-control">
+                                        </div>
+                                        <div class="input-group my-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fab fa-github-square"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" placeholder="Github Link" name="github"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                    <input type="submit" class="btn btn-primary" value="Create Profile">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <%- include('../../partials/footer.ejs') %>
