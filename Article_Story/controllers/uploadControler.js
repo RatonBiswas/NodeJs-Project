@@ -34,7 +34,7 @@ exports.uploadProfilePics = async (req, res, next) => {
 
 exports.removeProfilePics =async (req, res, next) => {
   try {
-    let defaultProfile = 'upload/default.png'
+    let defaultProfile = 'uploads/user.png'
     let currentProfile = req.user.profilePics
     let profile =  await Profile.findOne({user: req.user._id})
     if(profile){
