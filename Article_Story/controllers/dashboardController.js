@@ -1,6 +1,7 @@
 const {validationResult} = require('express-validator')
 const Flash = require("../utils/Flash");
 const Profile = require("../models/Profile");
+const User = require("../models/User");
 const errorFormatter = require('../utils/validationErrorFormatter')
 
 exports.dashboardGetController = async (req, res, next) => {
@@ -43,16 +44,63 @@ exports.createProfilePostController = async (req, res, next) => {
       error: errors.mapped()
     });
   }
-  res.render("pages/dashboard/create-profile", {
-    title: "Create Your Profile",
-    flashMessage: Flash.getMessage(req),
-    error:{}
-  });
 
+  let {
+    name,
+    title,
+    bio,
+    website,
+    facebook,
+    twitter,
+    github,
+  } = req.body;
+
+  let profilePics = req.user.profilePics
+  let posts =[]
+  let bookmarks=[]
+  try {
+    const profile = new Profile({
+      user: req.user._id,
+      name,
+      title,
+      bio,
+      profilePics,
+      links: {
+          website: website || '',
+          facebook:facebook|| '',
+          twitter:twitter|| '',
+          github:github|| '',
+      },
+      posts,
+      bookmarks
+    })
+    let createdProfile = await profile.save()
+    await User.findOneAndUpdate(
+      { _id : req.user._id},
+      {$set: { profile:createdProfile._id}}
+    )
+    req.flash('success','Profile Created Successfully')
+    res.redirect('/dashboard')
+  } catch (e) {
+    next(e);
+  }
 }
 
 exports.editProfileGetController = async (req, res, next) => {
-    
+  try {
+    let profile = await Profile.findOne({ user: req.user._id });
+    if (!profile) {
+      return res.redirect("/dashboard/create-profile");
+    }
+    res.render("pages/dashboard/edit-profile", {
+      title: "Edit Your Profile",
+      flashMessage: Flash.getMessage(req),
+      error:{},
+      profile
+    });
+  } catch (err) {
+    next(err);
+  }
 }
 
 exports.editProfilePostController = async (req, res, next) => {
