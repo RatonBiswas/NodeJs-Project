@@ -1,0 +1,49 @@
+<%- include('../../../partials/head.ejs') %>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+                <div class="mx-5">
+                    <div class="card card-body my-5">
+                        <form action="/posts/create" method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="title">Enter Your Post Title</label>
+                                <input type="text" name="title" id="title" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="tiny-mce-post-body">Enter your post body</label>
+                                <textarea id="tiny-mce-post-body" class="form-control" name="body"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="tags">Enter some tags(Max 10)</label>
+                                <input type="text" name="tags" id="tags" class="form-control"
+                                    placeholder="tag1, tag2, tag3">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupFile">Upload</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="inputGroupFile" name="post-thumbnail">
+                                    <label class="custom-file-label" for="inputGroupFile">Choose file</label>
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Create Post">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../../../partials/footer.ejs') %>
+    <script src="https://cdn.tiny.cloud/1/8b7h9vnwl5oqjak8t57avffcy43yo0d2kq67qdcj68g003fi/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="/scripts/tinymce.js"></script>
+    <script>
+        $('#inputGroupFile').on('change',function(e) {
+            let filename = e.target.files[0].name;
+            $(this).next('.custom-file-lebel').html(filename)
+        })
+    </script>
+        </body>
+
+        </html>

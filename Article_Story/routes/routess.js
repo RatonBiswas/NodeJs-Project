@@ -1,6 +1,7 @@
 const authRoute = require('./authRoute')
 const dashboardRoute = require('./dashboardRoute')
 const uploadRoute = require('./uploadRoute')
+const postRoute = require('./postRoute')
 // const playground = require('../playground/play')
 
 const routes = [
@@ -16,17 +17,22 @@ const routes = [
         path: '/upload',
         handler: uploadRoute
     },
+    {
+        path: '/posts',
+        handler: postRoute
+    },
     // {
     //     path: '/playground',
     //     handler: playground
     // },
     {
         path: '/',
-        handler: (req, res) =>{
-            res.json({
-                message: 'Hello User'
-            })
-        }
+        handler: dashboardRoute
+        // handler: (req, res) =>{
+        //     res.json({
+        //         message: 'Hello User'
+        //     })
+        // }
     },
 ]
 
