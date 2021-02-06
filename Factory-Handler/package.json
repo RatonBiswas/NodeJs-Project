@@ -1,0 +1,23 @@
+{
+  "name": "factory-handler",
+  "version": "1.0.0",
+  "description": "A handler factory function is a document from all the other collections with one simple function.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Crud Operations",
+    "Crud Handler"
+  ],
+  "author": "Raton Biswas",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com"
+  },
+  "bugs": {
+    "url": "https://github.com/issues"
+  },
+  "homepage": "git://github.com#readme"
+}
