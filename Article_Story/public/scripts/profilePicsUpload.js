@@ -32,9 +32,6 @@ window.onload= function() {
     })
     $('#cancel-cropping').on('click', function(){
         $('#crop-modal').modal('hide')
-        setTimeout(()=>{
-            baseCropping.croppie('destroy')
-        },1000)
     })
     $('#upload-image').on('click', function(){
         baseCropping.croppie('result','blob')
@@ -59,9 +56,6 @@ window.onload= function() {
                 document.getElementById('profilePics').src = data.profilePics
                 document.getElementById('profilePicsForm').requestFullscreen()
                 $('#crop-modal').modal('hide')
-                setTimeout(()=>{
-                    baseCropping.croppie('destroy')
-                },1000)
             })
         })
     })
