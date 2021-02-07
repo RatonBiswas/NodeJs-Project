@@ -8,7 +8,8 @@
   },
   "keywords": [
     "Crud Operations",
-    "Crud Handler"
+    "Crud Handler",
+    "Factory Handler"
   ],
   "author": "Raton Biswas",
   "license": "MIT",
