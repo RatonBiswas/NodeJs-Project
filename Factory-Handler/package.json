@@ -11,7 +11,7 @@
     "Crud Handler"
   ],
   "author": "Raton Biswas",
-  "license": "ISC",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "ghttps://github.com/RatonBiswas/NodeJs-Project/tree/main/Factory-Handler"
