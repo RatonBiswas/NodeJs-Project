@@ -8,7 +8,7 @@ Use :
 ```
 const Model =  require('MongooseModel') // Here MongooseModel Is Your Schema File.
 
-const factory = require(factory-handler)
+const factory = require('factory-handler')
 
 exports.getAllModelPost = factory.getAll(Model) // Here Model Is Your Mongoose Schema Name.
 exports.createModelPost = factory.createOne(Model)
@@ -20,7 +20,7 @@ exports.deleteModelPost = factory.deleteOne(Model)
 ## User Manual 
 ```
 const User = require('../models/userModel')
-const factory = require(factory-handler)
+const factory = require('factory-handler')
 
 
 exports.getAllUserPost = factory.getAll(User)

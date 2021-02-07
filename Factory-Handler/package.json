@@ -1,6 +1,6 @@
 {
   "name": "factory-handler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A handler factory function is a document from all the other collections with one simple function.",
   "main": "app.js",
   "scripts": {
