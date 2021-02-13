@@ -1,6 +1,6 @@
 {
   "name": "factory-handler",
-  "version": "1.0.1",
+  "version": "1.1.1",
   "description": "A handler factory function is a document from all the other collections with one simple function.",
   "main": "app.js",
   "scripts": {
@@ -15,10 +15,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "ghttps://github.com/RatonBiswas/NodeJs-Project/tree/main/Factory-Handler"
+    "url": "git+https://github.com/RatonBiswas/factory-handler"
   },
   "bugs": {
-    "url": "https://github.com/RatonBiswas/NodeJs-Project/issues"
+    "url": "https://github.com/RatonBiswas/factory-handler/issues"
   },
-  "homepage": "https://github.com/RatonBiswas/NodeJs-Project/tree/main/Factory-Handler#readme"
+  "homepage": "https://github.com/RatonBiswas/factory-handler#readme"
 }
